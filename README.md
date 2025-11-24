@@ -10,7 +10,12 @@ This is the offical code repo for **NeurIPS 2025 Oral** paper **OpenHOI: Open-Wo
 
 
 
-**We will release our code as soon as possible**
+## Plan
+- [√ ] Paper Released.
+- [√ ] Main Code.
+- [√ ] Pretrained Weights.
+- [  ] HOIAffordanceMLLM Weights.
+- [  ] Affordance HOI Diffusion Weights.
 
 Any Question, feel free to contact zhangzhh2024@shanghaitech.edu.cn
 
@@ -66,36 +71,44 @@ Any Question, feel free to contact zhangzhh2024@shanghaitech.edu.cn
 
 - 2. Down [ShapeLLM](https://github.com/qizekun/ShapeLLM/blob/main/docs/MODEL_ZOO.md) model weight into your directory, and Modify the model path in the `scripts/finetune_lora.sh`， including both `--vision_tower_path` and `--pretrain_mm_mlp_adapter`
  
- - 3. Down [Uni3D](https://github.com/baaivision/Uni3D) model weight into your directory, and Modify the model path in the `./llava/model/language_model/affordancellm.py`
+- 3. Down [Uni3D](https://github.com/baaivision/Uni3D) model weight into your directory, and Modify the model path in the `./llava/model/language_model/affordancellm.py`
  
-- 4. you can train your own model by running the following code
- 
-        ```bash
-        sh ./scripts/finetune_lora.sh
-        ```
 
 # Set Up Enviroment for Affordance-Driven Diffusion
 
-- 1.Create Python Enviroments
-  conda create -n text2hoi python=3.8 -y
-conda activate text2hoi
+- 1. Create Python Enviroments
+  ```
+  conda create -n openhoi python=3.8 -y
+  conda activate openhoi
+  ```
+- 2. Get pyyaml
+  ```
+  pip install pyyaml==6.0.1
+  ```
+- 3. Install pytorch3d 0.7.2
+  ```
+  conda install pytorch=1.13.0 torchvision pytorch-cuda=11.6 -c pytorch -c nvidia -y
+  conda install -c fvcore -c iopath -c conda-forge fvcore iopath -y
+  conda install -c bottler nvidiacub -y
+  pip install --no-index --no-cache-dir pytorch3d -f https://dl.fbaipublicfiles.com/pytorch3d/packaging/wheels/py38_cu116_pyt1130/download.html
+  ```
+- 4. Get other requirements
+  ```
+  pip install -r requirements.txt
+  ```
+- 5. Get spacy
+  ```
+  python -m spacy download en_core_web_sm
+  ```
+- 6. Get CLIP
+  ```
+  pip install git+https://github.com/openai/CLIP.git
+  ```
+- 7. Get numpy
+  ```
+  pip install numpy==1.23.5
+  ```
 
-pip install pyyaml==6.0.1
-
-# Install pytorch3d 0.7.2
-conda install pytorch=1.13.0 torchvision pytorch-cuda=11.6 -c pytorch -c nvidia -y
-conda install -c fvcore -c iopath -c conda-forge fvcore iopath -y
-conda install -c bottler nvidiacub -y
-
-pip install --no-index --no-cache-dir pytorch3d -f https://dl.fbaipublicfiles.com/pytorch3d/packaging/wheels/py38_cu116_pyt1130/download.html
-
-pip install -r requirements.txt
-
-python -m spacy download en_core_web_sm
-pip install git+https://github.com/openai/CLIP.git
-
-pip install numpy==1.23.5
-- 2.
 # Acknowledgement
 Thanks for the excellent work [ShapeLLM](https://github.com/qizekun/ShapeLLM/),[Text2HOI](https://github.com/JunukCha/Text2HOI),[DSG](https://github.com/LingxiaoYang2023/DSG2024),[SeqAfford](https://github.com/hq-King/SeqAfford),[GazeHOI](https://github.com/takiee/GazeHOI-toolkit)
 
