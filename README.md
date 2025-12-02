@@ -8,9 +8,13 @@ This is the offical code repo for **NeurIPS 2025 Oral** paper **OpenHOI: Open-Wo
     <img src="pipeline.png" height=500>
 </div>
 
+# Disclaimers
+- Code Quality Level: Tired grad student with very low coding skill, lots of hard code in my repo
+- Training Enviroment: HOIAffordanceMLLM: A800 80G GPUs(use 73G). Affordance-Driven HOI Diffusion: 4090 24G GPUs
+- Questions: please drop me an email, it is the fastest way to get feedback
+- For Enviroment Set Up: I set the enviroment in my gpus by this way, may have more easy ways. But I believe you can set up the enviroment by my steps
 
-
-## Plan
+# Plan
 - [√ ] Paper Released.
 - [√ ] Main Code.
 - [√ ] Pretrained Weights.
@@ -18,6 +22,7 @@ This is the offical code repo for **NeurIPS 2025 Oral** paper **OpenHOI: Open-Wo
 - [  ] Affordance HOI Diffusion Weights.
 
 Any Question, feel free to contact zhangzhh2024@shanghaitech.edu.cn
+
 
 # Set Up Enviroment for HOIAffordanceMLLM
 - 1. Create Python Enviroment
@@ -73,6 +78,7 @@ Any Question, feel free to contact zhangzhh2024@shanghaitech.edu.cn
  
 - 3. Down [Uni3D](https://github.com/baaivision/Uni3D) model weight into your directory, and Modify the model path in the `./llava/model/language_model/affordancellm.py`
  
+<!-- - 4. If you want to get multi-object affordance or scene-level manipulation for long-horizon hoi, try the multi-object-affordance/scene_planning.py -->
 
 # Set Up Enviroment for Affordance-Driven Diffusion
 

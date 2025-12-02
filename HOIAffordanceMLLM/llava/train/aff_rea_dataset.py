@@ -16,14 +16,14 @@ DEFAULT_PT_END_TOKEN = "<pt_end>"
 
 
 SHORT_QUESTION_LIST = [
-    DEFAULT_POINT_TOKEN + "\n" + "Can you segment the It in this image?",
-    DEFAULT_POINT_TOKEN + "\n" + "Please segment the It in this image.",
+    DEFAULT_POINT_TOKEN + "\n" + "Can you segment the {class_name} in this image?",
+    DEFAULT_POINT_TOKEN + "\n" + "Please segment the {class_name} in this image.",
     DEFAULT_POINT_TOKEN
     + "\n"
-    + "What is It in this image? Please respond with segmentation mask.",
+    + "What is {class_name} in this image? Please respond with segmentation mask.",
     DEFAULT_POINT_TOKEN
     + "\n"
-    + "What is It in this image? Please output segmentation mask.",
+    + "What is {class_name} in this image? Please output segmentation mask.",
 ]
 
 LONG_QUESTION_LIST = [
@@ -38,27 +38,12 @@ EXPLANATORY_QUESTION_LIST = [
 ]
 
 ANSWER_LIST = [
-    "It is [SEG].",
-    "Sure, [SEG].",
-    "Sure, it is [SEG].",
-    "Sure, the segmentation result is [SEG].",
-    "[SEG].",
+    "It is [AFF].",
+    "Sure, [AFF].",
+    "Sure, it is [AFF].",
+    "Sure, the segmentation result is [AFF].",
+    "[AFF].",
 ]
-
-MULTI_ANSWER_LIST = [
-    "It are {seg}, separately.",
-    "It are {seg}.",
-    "Sure, It are {seg}, separately.",
-    "Sure, It are {seg}.",
-    "the segmentation result of It are {seg}.",
-    "the segmentation result of It are {seg}, separately.",
-    "Sure, the segmentation result of It are {seg}.",
-    "Sure, the segmentation result of It are {seg}, separately.",
-    "Sure, they are {seg}.",
-    "They are {seg}.",
-    "{seg}."
-]
-
 
 def get_info_from_json(json_path):
         try:
@@ -169,7 +154,7 @@ class ReasonSegDataset(torch.utils.data.Dataset):
         json_path = self.json[idx]
         parts = json_path.split("/")
         file_name = parts[-1].split("_")
-        #affordance_type = file_name[0]
+        affordance_type = file_name[0]
         object_name = file_name[2]
         id = file_name[-1].split(".")[0]
         
@@ -177,20 +162,13 @@ class ReasonSegDataset(torch.utils.data.Dataset):
         point_sample_idx = random.sample(range(range_[0],range_[1]), 1)
         point_path = 'affdata/'+self.type+'/point_'+object_name+'_'+id+'.txt'
         pa = '/root/autodl-tmp/'
-        sents, aff_type = get_info_from_json(pa+json_path)
-        affordance_types = aff_type
         # for id_x in point_sample_idx:
                 # point_path = self.point_files[id_x]
-        Points, affordance_label_name = self.extract_point_file(pa+point_path)
+        Points, affordance_label = self.extract_point_file(pa+point_path)
         Points = pc_normalize(Points)
         Points = Points.transpose()
-        affordance_labels=[]
-        affordance_index=[]
-        for i in range(affordance_types):
-            affordance_label_i, affordance_index_i = self.get_affordance_label(affordance_types[i], affordance_label_name)
-            affordance_labels.append(affordance_label_i)
-            affordance_index.append(affordance_index_i)
-        ori_size = affordance_labels.shape
+        affordance_label, affordance_index = self.get_affordance_label(affordance_type, affordance_label)
+        ori_size = affordance_label.shape
         logist_label = affordance_index
         
         
@@ -204,8 +182,7 @@ class ReasonSegDataset(torch.utils.data.Dataset):
 
 
 
-        #sents, aff_type = get_info_from_json(pa+json_path)
-        seg_num=len(aff_type)
+        sents, aff_type = get_info_from_json(pa+json_path)
         if len(sents) >= self.num_classes_per_sample:
             sampled_inds = np.random.choice(
                 list(range(len(sents))), size=self.num_classes_per_sample, replace=False
@@ -226,9 +203,9 @@ class ReasonSegDataset(torch.utils.data.Dataset):
                 print("1")
 
             # if self.explanatory != -1 and Point_ID in self.Point_to_explanation:
-            #     if choice == 0:  # [SEG] token
+            #     if choice == 0:  # [AFF] token
             #         answers.append(random.choice(self.answer_list))
-            #     elif choice == 1:  # [SEG] token + text answer
+            #     elif choice == 1:  # [AFF] token + text answer
             #         answer = self.Point_to_explanation[Point_name]["outputs"]
             #         answer = random.choice(self.answer_list) + " {}".format(answer)
             #         texts[-1] = (
@@ -245,16 +222,7 @@ class ReasonSegDataset(torch.utils.data.Dataset):
             #     else:
             #         raise ValueError("Not implemented yet.")
             else:
-                seg_token = ["[SEG{}]".format(i) for i in range(seg_num)]
-                # seg_token_num
-                seg_token = ' '.join(seg_token)
-                answer_temp = random.choice(self.multi_answer_list)
-                _answer_temp = answer_temp.format(class_name=', '.join(target_list).lower(), seg=_seg) if "{class_name}" in answer_temp else answer_temp.format(seg=_seg)
-                use_assign = False if "{class_name}" in answer_temp else True
-                _answer_temp = _answer_temp if self.seg_token_num == 1 else _answer_temp.replace('[SEG]', seg_token)
-                target_answer = _answer_temp
-                answers.append(target_answer)
-                #answers.append(random.choice(self.answer_list))
+                answers.append(random.choice(self.answer_list))
 
             conversations = []
             conv = conversation_lib.default_conversation.copy()
@@ -282,7 +250,7 @@ class ReasonSegDataset(torch.utils.data.Dataset):
             aff_pred,
             questions,
             sampled_sents,
-            affordance_labels,
+            affordance_label,
             logist_label
         )
 
