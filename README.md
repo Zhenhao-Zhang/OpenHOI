@@ -65,19 +65,13 @@ Any Question, feel free to contact zhangzhh2024@shanghaitech.edu.cn
       ```
       pip install torch-scatter==2.0.9 --no-build-isolation
       ```
-    - 1.5 Install llava
+    - 1.6 Install llava
 
       ```
       cd /yourpath/HOIAffordanceMLLM
       pip install -e .
       ```
 
-    - 1.6 Install Uni3D
-
-      ```
-      cd /yourpath/HOIAffordanceMLLM/llava/model/
-      git clone https://github.com/baaivision/Uni3D.git
-      ```
 
     - 1.7 Get Other Python Packages
 
@@ -85,9 +79,32 @@ Any Question, feel free to contact zhangzhh2024@shanghaitech.edu.cn
       pip install -r requirements.txt
       ```
 
-- 2. Down [ShapeLLM](https://github.com/qizekun/ShapeLLM/blob/main/docs/MODEL_ZOO.md) model weight into your directory, and Modify the model path in the `scripts/finetune_lora.sh`， including both `--vision_tower_path` and `--pretrain_mm_mlp_adapter`
- 
+- 2. Down [ShapeLLM](https://github.com/qizekun/ShapeLLM/blob/main/docs/MODEL_ZOO.md) model weight and json into your directory, and Modify the model path in the `scripts/finetune_lora.sh`， including both `--vision_tower_path` and `--pretrain_mm_mlp_adapter`, and `LLM_VERSION`
+      ```
+      pip install -U huggingface_hub
+
+      export HF_ENDPOINT=https://hf-mirror.com
+
+      huggingface-cli download --resume-download qizekun/ReConV2 --local-dir /root/tmp --include "zeroshot/large/best_lvis.pth"
+      
+      mkdir ShapeLLM_7B_gapartnet_v1.0
+
+      huggingface-cli download --resume-download qizekun/ShapeLLM_7B_gapartnet_v1.0 --local-dir /root/tmp/ShapeLLM_7B_gapartnet_v1.0 
+
+      mkdir shapellm
+
+      huggingface-cli download --repo-type dataset --resume-download qizekun/ShapeLLM --local-dir /root/tmp/shapellm --include "gapartnet_sft_27k_openai.json"
+      
+      huggingface-cli download --repo-type dataset --resume-download qizekun/ShapeLLM --local-dir /root/tmp/shapellm --include "gapartnet_pcs.zip"
+      
+      ```
 - 3. Down [Uni3D](https://github.com/baaivision/Uni3D) model weight into your directory, and Modify the model path in the `./llava/model/language_model/affordancellm.py`
+
+      ```
+      mkdir uni3d
+      huggingface-cli download --repo-type dataset --resume-download BAAI/Uni3D --local-dir /root/tmp/uni3d --include "modelzoo/uni3d-b/model.pt"
+ 
+      ```
  
 <!-- - 4. If you want to get multi-object affordance or scene-level manipulation for long-horizon hoi, try the multi-object-affordance/scene_planning.py -->
 
