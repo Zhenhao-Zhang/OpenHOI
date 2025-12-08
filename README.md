@@ -50,6 +50,17 @@ Any Question, feel free to contact zhangzhh2024@shanghaitech.edu.cn
       ```
       pip install "git+https://github.com/erikwijmans/Pointnet2_PyTorch.git#egg=pointnet2_ops&subdirectory=pointnet2_ops_lib"
       ```
+
+      **If fail:**
+      ```
+      cd ~
+
+      git clone https://github.com/erikwijmans/Pointnet2_PyTorch.git
+
+      cd Pointnet2_PyTorch
+
+      pip install -e .
+      ```
     - 1.5 Install torch-scatter
       ```
       pip install torch-scatter==2.0.9 --no-build-isolation
