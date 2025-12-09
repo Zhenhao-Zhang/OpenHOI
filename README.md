@@ -9,7 +9,7 @@ This is the offical code repo for **NeurIPS 2025 Oral** paper **OpenHOI: Open-Wo
 </div>
 
 # Disclaimers
-- Code Quality Level: Tired grad student with very low coding skill, lots of hard code in my repo
+- Code Quality Level: Tired grad student, lots of hard code in my repo
 - Training Enviroment: HOIAffordanceMLLM: A800 80G GPUs(use 73G). Affordance-Driven HOI Diffusion: 4090 24G GPUs
 - Questions: please drop me an email, it is the fastest way to get feedback
 - For Enviroment Set Up: I set the enviroment in my gpus by this way, may have more easy ways. But I believe you can set up the enviroment by my steps
@@ -18,8 +18,7 @@ This is the offical code repo for **NeurIPS 2025 Oral** paper **OpenHOI: Open-Wo
 - [√ ] Paper Released.
 - [√ ] Main Code.
 - [√ ] Pretrained Weights.
-- [  ] HOIAffordanceMLLM Weights.
-- [  ] Affordance HOI Diffusion Weights.
+
 
 Any Question, feel free to contact zhangzhh2024@shanghaitech.edu.cn
 
@@ -101,8 +100,8 @@ Any Question, feel free to contact zhangzhh2024@shanghaitech.edu.cn
       
       huggingface-cli download --repo-type dataset --resume-download qizekun/ShapeLLM --local-dir /root/tmp/shapellm --include "gapartnet_pcs.zip"
       
-      huggingface-cli download --resume-download lmms-lab/llava-onevision-projectors --local-dir /root/tmp --include "7b/mm_projector.bin"
-      
+      bash scripts/extract_mm_projector.py
+      You can also download mm_projection.bin there: https://pan.baidu.com/s/1TFjp8n9JhonxUdaUms2vcw?pwd=ia8m 
     
       ```
 - 3. Down [Uni3D](https://github.com/baaivision/Uni3D) model weight into your directory, and Modify the model path in the `./llava/model/language_model/affordancellm.py`
@@ -165,11 +164,13 @@ Thanks for the excellent work [ShapeLLM](https://github.com/qizekun/ShapeLLM/),[
 If you find our work useful in your research, please consider citing
 
 ```
-@inproceedings{
-zhang2025openhoi,
-title={Open{HOI}: Open-World Hand-Object Interaction Synthesis with Multimodal Large Language Model},
-author={Zhenhao Zhang and Ye Shi and Lingxiao Yang and Suting Ni and Qi Ye and Jingya Wang},
-booktitle={The Thirty-ninth Annual Conference on Neural Information Processing Systems},
-year={2025},
+@misc{zhang2025openhoiopenworldhandobjectinteraction,
+      title={OpenHOI: Open-World Hand-Object Interaction Synthesis with Multimodal Large Language Model}, 
+      author={Zhenhao Zhang and Ye Shi and Lingxiao Yang and Suting Ni and Qi Ye and Jingya Wang},
+      year={2025},
+      eprint={2505.18947},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2505.18947}, 
 }
 ```
