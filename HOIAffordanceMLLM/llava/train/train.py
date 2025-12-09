@@ -716,8 +716,8 @@ def train():
 
 
     tokenizer.pad_token = tokenizer.unk_token
-    num_added_tokens = tokenizer.add_tokens("[SEG]")
-    seg_token_idx = tokenizer("[SEG]", add_special_tokens=False).input_ids[0]
+    num_added_tokens = tokenizer.add_tokens("[AFF]")
+    seg_token_idx = tokenizer("[AFF]", add_special_tokens=False).input_ids[0]
 
     models_args = {
         "seg_token_idx": seg_token_idx,

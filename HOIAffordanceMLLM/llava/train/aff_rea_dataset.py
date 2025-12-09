@@ -38,11 +38,11 @@ EXPLANATORY_QUESTION_LIST = [
 ]
 
 ANSWER_LIST = [
-    "It is [SEG].",
-    "Sure, [SEG].",
-    "Sure, it is [SEG].",
-    "Sure, the segmentation result is [SEG].",
-    "[SEG].",
+    "It is [AFF].",
+    "Sure, [AFF].",
+    "Sure, it is [AFF].",
+    "Sure, the segmentation result is [AFF].",
+    "[AFF].",
 ]
 
 def get_info_from_json(json_path):
@@ -207,9 +207,9 @@ class ReasonSegDataset(torch.utils.data.Dataset):
                 print("1")
 
             # if self.explanatory != -1 and Point_ID in self.Point_to_explanation:
-            #     if choice == 0:  # [SEG] token
+            #     if choice == 0:  # [AFF] token
             #         answers.append(random.choice(self.answer_list))
-            #     elif choice == 1:  # [SEG] token + text answer
+            #     elif choice == 1:  # [AFF] token + text answer
             #         answer = self.Point_to_explanation[Point_name]["outputs"]
             #         answer = random.choice(self.answer_list) + " {}".format(answer)
             #         texts[-1] = (

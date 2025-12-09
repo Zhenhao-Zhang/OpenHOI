@@ -110,7 +110,13 @@ Any Question, feel free to contact zhangzhh2024@shanghaitech.edu.cn
       ```
       mkdir uni3d
       huggingface-cli download --repo-type dataset --resume-download BAAI/Uni3D --local-dir /root/tmp/uni3d --include "modelzoo/uni3d-b/model.pt"
- 
+      ```
+
+
+- 4. Fine-tuning the HOIAffordanceMLLM
+
+      ```
+      bash ./scripts/finetune_lora.sh
       ```
  
 <!-- - 4. If you want to get multi-object affordance or scene-level manipulation for long-horizon hoi, try the multi-object-affordance/scene_planning.py -->
@@ -118,37 +124,37 @@ Any Question, feel free to contact zhangzhh2024@shanghaitech.edu.cn
 # Set Up Enviroment for Affordance-Driven Diffusion
 
 - 1. Create Python Enviroments
-  ```
-  conda create -n openhoi python=3.8 -y
-  conda activate openhoi
-  ```
+      ```
+      conda create -n openhoi python=3.8 -y
+      conda activate openhoi
+      ```
 - 2. Get pyyaml
-  ```
-  pip install pyyaml==6.0.1
-  ```
+      ```
+      pip install pyyaml==6.0.1
+      ```
 - 3. Install pytorch3d 0.7.2
-  ```
-  conda install pytorch=1.13.0 torchvision pytorch-cuda=11.6 -c pytorch -c nvidia -y
-  conda install -c fvcore -c iopath -c conda-forge fvcore iopath -y
-  conda install -c bottler nvidiacub -y
-  pip install --no-index --no-cache-dir pytorch3d -f https://dl.fbaipublicfiles.com/pytorch3d/packaging/wheels/py38_cu116_pyt1130/download.html
-  ```
+      ```
+      conda install pytorch=1.13.0 torchvision pytorch-cuda=11.6 -c pytorch -c nvidia -y
+      conda install -c fvcore -c iopath -c conda-forge fvcore iopath -y
+      conda install -c bottler nvidiacub -y
+      pip install --no-index --no-cache-dir pytorch3d -f https://dl.fbaipublicfiles.com/pytorch3d/packaging/wheels/py38_cu116_pyt1130/download.html
+      ```
 - 4. Get other requirements
-  ```
-  pip install -r requirements.txt
-  ```
+      ```
+      pip install -r requirements.txt
+      ```
 - 5. Get spacy
-  ```
-  python -m spacy download en_core_web_sm
-  ```
+      ```
+      python -m spacy download en_core_web_sm
+      ```
 - 6. Get CLIP
-  ```
-  pip install git+https://github.com/openai/CLIP.git
-  ```
+      ```
+      pip install git+https://github.com/openai/CLIP.git
+      ```
 - 7. Get numpy
-  ```
-  pip install numpy==1.23.5
-  ```
+      ```
+      pip install numpy==1.23.5
+      ```
 
 # Acknowledgement
 Thanks for the excellent work [ShapeLLM](https://github.com/qizekun/ShapeLLM/),[Text2HOI](https://github.com/JunukCha/Text2HOI),[DSG](https://github.com/LingxiaoYang2023/DSG2024),[SeqAfford](https://github.com/hq-King/SeqAfford),[GazeHOI](https://github.com/takiee/GazeHOI-toolkit)

@@ -124,8 +124,8 @@ def main(args):
         use_fast=False,
     )
     tokenizer.pad_token = tokenizer.unk_token
-    num_added_tokens = tokenizer.add_tokens("[SEG]")
-    args.seg_token_idx = tokenizer("[SEG]", add_special_tokens=False).input_ids[0]
+    num_added_tokens = tokenizer.add_tokens("[AFF]")
+    args.seg_token_idx = tokenizer("[AFF]", add_special_tokens=False).input_ids[0]
 
     if args.use_mm_start_end:
         tokenizer.add_tokens(
