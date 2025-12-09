@@ -59,6 +59,8 @@ Any Question, feel free to contact zhangzhh2024@shanghaitech.edu.cn
 
       cd Pointnet2_PyTorch
 
+      pip install -r requirements.txt
+
       pip install -e .
       ```
     - 1.5 Install torch-scatter
@@ -97,6 +99,9 @@ Any Question, feel free to contact zhangzhh2024@shanghaitech.edu.cn
       
       huggingface-cli download --repo-type dataset --resume-download qizekun/ShapeLLM --local-dir /root/tmp/shapellm --include "gapartnet_pcs.zip"
       
+      (optional) huggingface-cli download --resume-download lmms-lab/llava-onevision-projectors --local-dir /root/tmp --include "7b/mm_projector.bin"
+
+    
       ```
 - 3. Down [Uni3D](https://github.com/baaivision/Uni3D) model weight into your directory, and Modify the model path in the `./llava/model/language_model/affordancellm.py`
 
