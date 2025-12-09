@@ -156,7 +156,10 @@ class ReasonSegDataset(torch.utils.data.Dataset):
         parts = json_path.split("/")
         file_name = parts[-1].split("_")
         affordance_type = file_name[0]
-        affordance_type = affordance_type[11:]
+        if 'train' in affordance_type:
+            affordance_type = affordance_type[11:]
+        elif 'test' in affordance_type:
+            affordance_type = affordance_type[18:]
         # print(affordance_type)
         object_name = file_name[2]
         id = file_name[-1].split(".")[0]
