@@ -16,9 +16,10 @@ This is the offical code repo for **NeurIPS 2025 Oral** paper **OpenHOI: Open-Wo
 
 # Plan
 - [√ ] Paper Released.
-- [√ ] Main Code.
+- [√ ] Code.
 - [√ ] Pretrained Weights.
-
+- [√ ] Dataset.
+- [√ ] Quick Start
 
 Any Question, feel free to contact zhangzhh2024@shanghaitech.edu.cn
 
@@ -112,11 +113,6 @@ Any Question, feel free to contact zhangzhh2024@shanghaitech.edu.cn
       ```
 
 
-- 4. Fine-tuning the HOIAffordanceMLLM
-
-      ```
-      bash ./scripts/finetune_lora.sh
-      ```
  
 <!-- - 4. If you want to get multi-object affordance or scene-level manipulation for long-horizon hoi, try the multi-object-affordance/scene_planning.py -->
 
@@ -153,6 +149,44 @@ Any Question, feel free to contact zhangzhh2024@shanghaitech.edu.cn
 - 7. Get numpy
       ```
       pip install numpy==1.23.5
+      ```
+- 8. Download Pretrain Weights on [Download](https://drive.google.com/drive/folders/1bfYF94-dVy-mA0n4cIRb_wI4ohPC6KK5?usp=sharing)
+# Data Prepare
+- 1. Download the affordance dataset and hoi dataset:
+
+Afforodance Dataset: [Download](https://pan.baidu.com/s/1Wsz6YK-IJ6yQ80dsYPdqrA?pwd=6swx)                                        
+ 
+
+HOI Dataset: [GRAB](https://grab.is.tue.mpg.de/index.html) [GRAB Text](https://drive.google.com/drive/folders/1vQXrplvS9fukMqHBH7JOne5DoaqTCL5w?usp=sharing) [ARCTIC](https://github.com/zc-alexfan/arctic/blob/master/docs/data/README.md#download-full-arctic) [ARCTIC Text](https://drive.google.com/drive/folders/1vQXrplvS9fukMqHBH7JOne5DoaqTCL5w?usp=sharing)
+
+- 2. You should process your pointcloud to 2048*3 for both training and inference time:
+```
+python DataProcess/point_cloud_process.py
+python Affordance-DrivenHOIDiffusion/preprocessing.py
+```
+- 3. Process the instrutions to open-vocabulary instructions:
+```
+python DataProcess/high_level_instructions.py
+```
+
+# Quick Start
+- 1. Coarse Fine-tuning the HOIAffordanceMLLM with Affordance Dataset
+
+      ```
+      bash HOIAffordanceMLLM/scripts/finetune_lora.sh
+      ```
+- 2. Fine-grained Aligenment for Hand-Object Contact:(This step will transfer object-centric affordance to hand-centric affordance(contact map, with only 0/1))
+      ```
+      bash Affordance-DrivenHOIDiffusion/scripts/train/train_contact_estimator.sh
+      ```
+- 3. Train Affordance-Driven HOI Diffusion
+      ```
+      bash Affordance-DrivenHOIDiffusion/scripts/train/train_texthom.sh
+      ```
+
+- 4. OpenHOI Quick Inference
+      ```
+      python Affordance-DrivenHOIDiffusion/start/inference.py
       ```
 
 # Acknowledgement
