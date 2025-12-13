@@ -172,7 +172,8 @@ python DataProcess/high_level_instructions.py
 ```
 
 # Weights
-Weights for HOIAffordanceMLLM: https://pan.baidu.com/s/13yP3ihztAcBF35JYMvHD8w?pwd=q6z3 
+Weights for HOIAffordanceMLLM: [https://pan.baidu.com/s/13yP3ihztAcBF35JYMvHD8w?pwd=q6z3](Download)
+
 Weights for Affordance-Driven HOI Diffusion: In output folder texthom_best.pt
 
 # Quick Start
