@@ -21,7 +21,7 @@ This is the offical code repo for **NeurIPS 2025 Oral** paper **OpenHOI: Open-Wo
 - [√ ] Dataset.
 - [√ ] Quick Start
 - [√ ] Weights of HOIAffordanceMLLM
-- [√ ] Weights of Affordance-Driver HOI Diffusion
+- [√ ] Weights of Affordance-Driven HOI Diffusion
 
 Any Question, feel free to contact zhangzhh2024@shanghaitech.edu.cn
 
