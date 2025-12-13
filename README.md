@@ -20,7 +20,7 @@ This is the offical code repo for **NeurIPS 2025 Oral** paper **OpenHOI: Open-Wo
 - [√ ] Pretrained Weights.
 - [√ ] Dataset.
 - [√ ] Quick Start
-- [  ] I will share the weight of HOIAffordanceMLLM Before 2026.1.15,Which time is the last camera ready version's deadline. This Weight will performance AUC 85.5+/84.2(avg 84.85+) on Seen/Unseen Objects, Which more powerful than we Report in our paper(avg 84.65)
+- [√ ] Weights of HOIAffordanceMLLM
 
 Any Question, feel free to contact zhangzhh2024@shanghaitech.edu.cn
 
@@ -170,12 +170,17 @@ python Affordance-DrivenHOIDiffusion/preprocessing.py
 python DataProcess/high_level_instructions.py
 ```
 
+# Weights
+Weights for HOIAffordanceMLLM: https://pan.baidu.com/s/13yP3ihztAcBF35JYMvHD8w?pwd=q6z3 
+Weights for Affordance-Driven HOI Diffusion: In output folder texthom_best.pt
+
 # Quick Start
 - 1. Coarse Fine-tuning the HOIAffordanceMLLM with Affordance Dataset
 
       ```
       bash HOIAffordanceMLLM/scripts/finetune_lora.sh
       ```
+
 - 2. Fine-grained Aligenment for Hand-Object Contact:(This step will transfer object-centric affordance to hand-centric affordance(contact map, with only 0/1))
       ```
       bash Affordance-DrivenHOIDiffusion/scripts/train/train_contact_estimator.sh
