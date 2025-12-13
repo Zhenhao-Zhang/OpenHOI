@@ -21,6 +21,7 @@ This is the offical code repo for **NeurIPS 2025 Oral** paper **OpenHOI: Open-Wo
 - [√ ] Dataset.
 - [√ ] Quick Start
 - [√ ] Weights of HOIAffordanceMLLM
+- [√ ] Weights of Affordance-Driver HOI Diffusion
 
 Any Question, feel free to contact zhangzhh2024@shanghaitech.edu.cn
 
@@ -117,7 +118,7 @@ Any Question, feel free to contact zhangzhh2024@shanghaitech.edu.cn
  
 <!-- - 4. If you want to get multi-object affordance or scene-level manipulation for long-horizon hoi, try the multi-object-affordance/scene_planning.py -->
 
-# Set Up Enviroment for Affordance-Driven Diffusion
+# Set Up Enviroment for Affordance-Driven HOI Diffusion
 
 - 1. Create Python Enviroments
       ```
