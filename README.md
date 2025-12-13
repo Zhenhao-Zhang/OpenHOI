@@ -20,6 +20,7 @@ This is the offical code repo for **NeurIPS 2025 Oral** paper **OpenHOI: Open-Wo
 - [√ ] Pretrained Weights.
 - [√ ] Dataset.
 - [√ ] Quick Start
+- [  ] I will share the weight of HOIAffordanceMLLM Before 2026.1.15,Which time is the last camera ready version's deadline. This Weight will performance AUC 85.5+/84.2(avg 84.85+) on Seen/Unseen Objects, Which more powerful than we Report in our paper(avg 84.65)
 
 Any Question, feel free to contact zhangzhh2024@shanghaitech.edu.cn
 
