@@ -17,11 +17,13 @@ This is the offical code repo for **NeurIPS 2025 Oral** paper **OpenHOI: Open-Wo
 # Plan
 - [√ ] Paper Released.
 - [√ ] Code.
+- [√ ] Inference Result of HOIAffordanceMLLM
 - [√ ] Pretrained Weights.
 - [√ ] Dataset.
 - [√ ] Quick Start
 - [√ ] Weights of HOIAffordanceMLLM
 - [√ ] Weights of Affordance-Driven HOI Diffusion
+- [√ ] Open-Vocabulary Instructions
 
 Any Question, feel free to contact zhangzhh2024@shanghaitech.edu.cn
 
@@ -170,11 +172,12 @@ python Affordance-DrivenHOIDiffusion/preprocessing.py
 ```
 python DataProcess/high_level_instructions.py
 ```
-
+You can also download the High-level instructions here: [Download](https://pan.baidu.com/s/1ZM63KO-Jajq-YifJvOFxQg?pwd=8bsk) 
 # Weights
-Weights for HOIAffordanceMLLM: [https://pan.baidu.com/s/13yP3ihztAcBF35JYMvHD8w?pwd=q6z3](Download)
+Weights for HOIAffordanceMLLM: [Download](https://pan.baidu.com/s/13yP3ihztAcBF35JYMvHD8w?pwd=q6z3)
 
-Weights for Affordance-Driven HOI Diffusion: In output folder texthom_best.pt
+Weights for Affordance-Driven HOI Diffusion:  [Download](https://pan.baidu.com/s/1nlj8u__3Z018F2XzyZ8UFw?pwd=ue54)
+
 
 # Quick Start
 - 1. Coarse Fine-tuning the HOIAffordanceMLLM with Affordance Dataset
