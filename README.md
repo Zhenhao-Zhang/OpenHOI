@@ -105,7 +105,7 @@ Any Question, feel free to contact zhangzhh2024@shanghaitech.edu.cn
       
       huggingface-cli download --repo-type dataset --resume-download qizekun/ShapeLLM --local-dir /root/tmp/shapellm --include "gapartnet_pcs.zip"
       
-      bash scripts/extract_mm_projector.py
+      python HOIAffordanceMLLM/scripts/extract_mm_projector.py
       You can also download mm_projection.bin there: https://pan.baidu.com/s/1TFjp8n9JhonxUdaUms2vcw?pwd=ia8m 
     
       ```
@@ -190,12 +190,19 @@ Weights for Affordance-Driven HOI Diffusion:  [Download](https://pan.baidu.com/s
       ```
       bash Affordance-DrivenHOIDiffusion/scripts/train/train_contact_estimator.sh
       ```
-- 3. Train Affordance-Driven HOI Diffusion
+- 3. Train Affordance-Driven HOI Diffusion Inference
       ```
       bash Affordance-DrivenHOIDiffusion/scripts/train/train_texthom.sh
       ```
 
 - 4. OpenHOI Quick Inference
+
+      HOIAffordanceMLLM Inference:
+      ```
+      cd HOIAffordanceMLLM
+      bash scripts/inference.sh
+      ```
+      Affordance-Driven HOI Diffusion
       ```
       python Affordance-DrivenHOIDiffusion/start/inference.py
       ```
