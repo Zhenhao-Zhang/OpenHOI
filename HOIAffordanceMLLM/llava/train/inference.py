@@ -1,19 +1,3 @@
-# Adopted from https://github.com/lm-sys/FastChat. Below is the original copyright:
-# Adopted from tatsu-lab@stanford_alpaca. Below is the original copyright:
-#    Copyright 2023 Rohan Taori, Ishaan Gulrajani, Tianyi Zhang, Yann Dubois, Xuechen Li
-#
-#    Licensed under the Apache License, Version 2.0 (the "License");
-#    you may not use this file except in compliance with the License.
-#    You may obtain a copy of the License at
-#
-#        http://www.apache.org/licenses/LICENSE-2.0
-#
-#    Unless required by applicable law or agreed to in writing, software
-#    distributed under the License is distributed on an "AS IS" BASIS,
-#    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-#    See the License for the specific language governing permissions and
-#    limitations under the License.
-
 import os
 import json
 import copy
@@ -467,13 +451,7 @@ def preprocess_v1(
 
     targets = input_ids.clone()
 
-    # for target in targets:
-    #     if 5519 in target and 1822 in target:
-    #         if random.random() < 0.5:
-    #             loc_start = target.tolist().index(5519)
-    #             loc_end = target.tolist().index(1822)
-    #             target[:loc_start] = IGNORE_INDEX
-    #             target[loc_end + 1:] = IGNORE_INDEX
+    
 
     assert conv.sep_style == conversation_lib.SeparatorStyle.TWO
 
@@ -578,13 +556,7 @@ class LazySupervisedDataset(Dataset):
     def __len__(self):
         return len(self.list_data_dict)
 
-    # @property
-    # def lengths(self):
-    #     length_list = []
-    #     for sample in self.list_data_dict:
-    #         pt_tokens = 128 if 'point' in sample else 0
-    #         length_list.append(sum(len(conv['value'].split()) for conv in sample['conversations']) + pt_tokens)
-    #     return length_list
+
 
     @property
     def modality_lengths(self):
@@ -1110,12 +1082,7 @@ def train():
                 "warmup_type": "linear",
             },
         },
-        # "fp16": {
-        #     "enabled": model_args.precision == "fp16",
-        # },
-        # "bf16": {
-        #     "enabled": args.precision == "bf16",
-        # },
+
         "gradient_clipping": 1.0,
         "zero_optimization": {
             "stage": 2,
@@ -1140,39 +1107,12 @@ def train():
         config=ds_config,
     )
 
-    # resume deepspeed checkpoint
-    # if training_args.auto_resume and len(training_args.resume) == 0:
-    #     resume = os.path.join("/root/tmp/log_dir", "ckpt_model")
-    #     if os.path.exists(resume):
-    #         training_args.resume = resume
 
-    # if training_args.resume:
-    #     load_path, client_state = model_engine.load_checkpoint(training_args.resume)
-    #     with open(os.path.join(training_args.resume, "latest"), "r") as f:
-    #         ckpt_dir = f.readlines()[0].strip()
-    #     start_epoch = (
-    #         int(ckpt_dir.replace("global_step", "")) // 2000
-    #     )
-    #     print(
-    #         "resume training from {}, start from epoch {}".format(
-    #             training_args.resume, start_epoch)
-    #     )
 
 
     
 
-    # test_loader = torch.utils.data.DataLoader(
-    #         test_dataset,
-    #         batch_size=4,
-    #         shuffle=False,
-    #         num_workers=4,
-    #         collate_fn=partial(
-    #             collate_fn,
-    #             tokenizer=tokenizer,
-    #             use_mm_start_end=model.config.mm_use_pt_start_end,
-    #             local_rank=local_rank,
-    #         ),
-    #     )
+
 
     test_dataset = ReasonSegDataset( 
                  1,
@@ -1217,181 +1157,6 @@ def train():
 
 if __name__ == "__main__":
     train()
-
-
-
-def collate_fn(
-    batch, tokenizer=None, conv_type="llava_v1", use_mm_start_end=True, local_rank=-1
-):
-    point_list = []
-    conversation_list = []
-    aff_pred_list = []
-    questions_list = []
-    offset_list = [0]
-    cnt = 0
-    affordance_label_list = []
-    logist_label_list =[]
-
-    for (points,conversations,aff_preds,questions,_,affordance_label,logist_label) in batch:
-        points = torch.tensor(points)
-        points = points.to(torch.float32) 
-        point_list.append(points)
-        conversation_list.extend(conversations)
-        aff_pred_list.append(aff_preds)
-        questions_list.append(questions)
-        cnt += len(conversations)
-        offset_list.append(cnt)
-        affordance_label_list.append(torch.from_numpy(affordance_label))
-        logist_label_list.append(logist_label)
-
-    if use_mm_start_end:
-        # replace <image> token
-        for i in range(len(conversation_list)):
-            replace_token = DEFAULT_POINT_TOKEN
-            replace_token = (
-                    DEFAULT_PT_START_TOKEN + replace_token + DEFAULT_PT_END_TOKEN
-                )
-            
-            
-            conversation_list[i] = conversation_list[i].replace(
-                    DEFAULT_POINT_TOKEN, replace_token
-                )
-    input_ids = [
-        tokenizer_point_token(prompt, tokenizer, return_tensors="pt")
-        for prompt in conversation_list
-                ]
-    
-   
-    input_ids = torch.nn.utils.rnn.pad_sequence(
-        input_ids, batch_first=True, padding_value=tokenizer.pad_token_id
-    )
-    # input_ids = torch.stack(input_ids, dim=0)
-
-
-    attention_masks = input_ids.ne(tokenizer.pad_token_id)
-    conv = conversation_lib.default_conversation.copy()
-    targets = input_ids.clone()
-
-
-    if conv_type == "llava_v1":
-        sep = conv.sep + conv.roles[1] + ": "
-    else:
-        sep = "[/INST] "
-    for conversation, target in zip(conversation_list, targets):
-        total_len = int(target.ne(tokenizer.pad_token_id).sum())
-
-        rounds = conversation.split(conv.sep2)
-        cur_len = 1
-        target[:cur_len] = IGNORE_INDEX
-        for i, rou in enumerate(rounds):
-            if rou == "":
-                break
-
-            parts = rou.split(sep)
-            # if len(parts) != 2:
-            #     break
-            assert len(parts) == 2, (len(parts), rou)
-            parts[0] += sep
-
-            if DEFAULT_POINT_TOKEN in conversation:
-                round_len = len(tokenizer_point_token(rou, tokenizer))
-                instruction_len = len(tokenizer_point_token(parts[0], tokenizer)) - 2
-            else:
-                round_len = len(tokenizer(rou).input_ids)
-                instruction_len = len(tokenizer(parts[0]).input_ids) - 2
-
-            target[cur_len : cur_len + instruction_len] = IGNORE_INDEX
-
-            cur_len += round_len
-        target[cur_len:] = IGNORE_INDEX
-
-        if False:
-            z = target.clone()
-            z = torch.where(z == IGNORE_INDEX, tokenizer.unk_token_id, z)
-            if local_rank == 0:
-                print(
-                    "conversation: ",
-                    conversation,
-                    "tokenizer.decode(z): ",
-                    tokenizer.decode(z),
-                )
-
-        if cur_len < tokenizer.model_max_length:
-            assert cur_len == total_len
-    truncate_len = tokenizer.model_max_length - 255
-
-    if input_ids.shape[1] > truncate_len:
-        input_ids = input_ids[:, :truncate_len]
-        targets = targets[:, :truncate_len]
-        attention_masks = attention_masks[:, :truncate_len]
-    return{
-            "points":torch.stack(point_list, dim=0),
-            "input_ids": input_ids,
-            "labels": targets,
-            "attention_masks": attention_masks,
-            
-            "offset": torch.LongTensor(offset_list),
-            "aff_label":torch.stack(affordance_label_list, dim=0),
-            "logist_label":logist_label_list
-            
-            
-           
-
-
-        }
-
-
-def dict_to_cuda(input_dict):
-    for k, v in input_dict.items():
-        if isinstance(input_dict[k], torch.Tensor):
-            input_dict[k] = v.cuda(non_blocking=True)
-        elif (
-            isinstance(input_dict[k], list)
-            and len(input_dict[k]) > 0
-            and isinstance(input_dict[k][0], torch.Tensor)
-        ):
-            input_dict[k] = [ele.cuda(non_blocking=True) for ele in v]
-    return input_dict
-
-
-
-
-import tqdm
-def validate(val_loader, model_engine, epoch, writer,length):
-
-    model_engine.eval()
-
-
-    for input_dict in tqdm.tqdm(val_loader):
-        torch.cuda.empty_cache()
-        input_dict = dict_to_cuda(input_dict)
-        points = input_dict["points"]
-        input_ids = input_dict["input_ids"]
-        labels = input_dict["labels"]
-        attention_masks = input_dict["attention_masks"]
-        offset = input_dict["offset"]
-        aff_label = input_dict["aff_label"]
-        logist_label = input_dict["logist_label"]
-        
-
-        with torch.no_grad():            
-            loss_ca,pred_affordance,aff_targets = model_engine(points=points,input_ids=input_ids,labels=labels,attention_masks = attention_masks,offset = offset,aff_label = aff_label,logist_label=logist_label )
-            aff_targets = aff_targets.unsqueeze(dim=-1)
-            pred_affordance =  torch.cat(pred_affordance, dim=0)
-            pr_aff.append(pred_affordance)
-            gt_aff.append(aff_targets)
-
-
-
-
-
-
-    return AUC_meter.avg
-
-
-
-
-
 
 
 
