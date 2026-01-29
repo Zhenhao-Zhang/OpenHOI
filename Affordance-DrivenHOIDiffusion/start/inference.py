@@ -142,15 +142,6 @@ def main(config):
     pointnet = build_pointnetfeat(config, test=True)
     contact_estimator = build_contact_estimator(config, test=True)
     object_model = build_object_model(data_config.data_obj_pc_path)
-    fid_sum=0.0
-    mpjpe_sum=0.0
-    fol_sum=0.0
-    diversity_sum=0.0
-    diversity_sum_real=0.0
-    mmdist_sum=0.0
-    count=0
-    sum_smooth=0
-    cnt_smooth=0
     with tqdm.tqdm(range(1)) as pbar:
         for epoch in pbar:
             for item in dataloader:
@@ -166,9 +157,8 @@ def main(config):
                 cov_map = item["cov_map"].cuda()
                 
                 # cov_map = torch.ones_like(cov_map)
-                x_d_lhand ,x_d_rhand,x_d_obj= x_lhand.clone(),x_rhand .clone(),x_obj.clone()
+                
                 for i in range(len(x_lhand)):
-                    tensorGTlhand, tensorGTrhand, tensorGTobj=x_lhand[i],x_rhand[i],x_obj[i]
                     affordance_map1 = cov_map[i].view(1,1024,1)
                     affordance_map = afford_dict[text[i]][:, :1024, :]
                     print(sum(abs(affordance_map-affordance_map1)))
