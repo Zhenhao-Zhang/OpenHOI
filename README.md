@@ -12,7 +12,7 @@ This is the offical code repo for **NeurIPS 2025 Oral** paper **OpenHOI: Open-Wo
 Our New Paper "[**UniHM**](https://github.com/Zhenhao-Zhang/UniHM):Unified Dexterous Hand Manipulation with Vision Language Model" is accepted by the top conference **ICLR 2026**! The first Cross-Embodiment Dexterous Hand Manipulation Framework without teleoperation data!
 # Disclaimers
 - Code Quality Level: Tired grad student, lots of hard code in my repo
-- Training Enviroment: HOIAffordanceMLLM: A800 80G GPUs(use 73G). Affordance-Driven HOI Diffusion: 4090 24G GPUs
+- Training Enviroment: A100 80G GPUs
 - Questions: please drop me an email, it is the fastest way to get feedback
 - For Enviroment Set Up: I set the enviroment in my gpus by this way, may have more easy ways. But I believe you can set up the enviroment by my steps
 
