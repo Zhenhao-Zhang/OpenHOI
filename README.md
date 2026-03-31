@@ -14,7 +14,6 @@ Our New Paper "[**UniHM**](https://github.com/Zhenhao-Zhang/UniHM):Unified Dexte
 - Code Quality Level: Tired grad student, lots of hard code in my repo
 - Training Enviroment: A100 80G GPUs
 - Questions: please drop me an email, it is the fastest way to get feedback
-- For Enviroment Set Up: I set the enviroment in my gpus by this way, may have more easy ways. But I believe you can set up the enviroment by my steps
 
 # Plan
 - [√ ] Paper Released.
@@ -192,7 +191,7 @@ Weights for Affordance-Driven HOI Diffusion:  [Download](https://pan.baidu.com/s
       ```
       bash Affordance-DrivenHOIDiffusion/scripts/train/train_contact_estimator.sh
       ```
-- 3. Train Affordance-Driven HOI Diffusion Inference
+- 3. Train Affordance-Driven HOI Diffusion
       ```
       bash Affordance-DrivenHOIDiffusion/scripts/train/train_texthom.sh
       ```
