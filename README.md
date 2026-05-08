@@ -8,8 +8,6 @@ This is the offical code repo for **NeurIPS 2025 Oral** paper **OpenHOI: Open-Wo
     <img src="pipeline.png" height=500>
 </div>
 
-# News🔥
-Our New Paper "[**UniHM**](https://github.com/Zhenhao-Zhang/UniHM):Unified Dexterous Hand Manipulation with Vision Language Model" is accepted by the top conference **ICLR 2026**! The first Cross-Embodiment Dexterous Hand Manipulation Framework without teleoperation data!
 # Disclaimers
 - Code Quality Level: Tired grad student, lots of hard code in my repo
 - Training Enviroment: A100 80G GPUs
