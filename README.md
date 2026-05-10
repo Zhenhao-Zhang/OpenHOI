@@ -215,13 +215,12 @@ Thanks for the excellent work [ShapeLLM](https://github.com/qizekun/ShapeLLM/),[
 If you find our work useful in your research, please consider citing
 
 ```
-@misc{zhang2025openhoiopenworldhandobjectinteraction,
-      title={OpenHOI: Open-World Hand-Object Interaction Synthesis with Multimodal Large Language Model}, 
-      author={Zhenhao Zhang and Ye Shi and Lingxiao Yang and Suting Ni and Qi Ye and Jingya Wang},
-      year={2025},
-      eprint={2505.18947},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV},
-      url={https://arxiv.org/abs/2505.18947}, 
+@article{zhang2026openhoi,
+  title={Openhoi: Open-world hand-object interaction synthesis with multimodal large language model},
+  author={Zhang, Zhenhao and Shi, Ye and Yang, Lingxiao and Ni, Suting and Ye, Qi and Wang, Jingya},
+  journal={Advances in Neural Information Processing Systems},
+  volume={38},
+  pages={166582--166612},
+  year={2026}
 }
 ```
